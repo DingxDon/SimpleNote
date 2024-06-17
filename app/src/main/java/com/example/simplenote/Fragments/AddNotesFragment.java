@@ -1,5 +1,6 @@
 package com.example.simplenote.Fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -8,10 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.simplenote.Models.NoteCardModel;
@@ -34,6 +39,10 @@ public class AddNotesFragment extends Fragment {
     private boolean isDataChanged = false;
 
     private androidx.appcompat.widget.Toolbar toolbar;
+    private EditText editTextDescription;
+    private EditText editTextTags;
+
+    private boolean isKeyboardOpen = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,45 +54,56 @@ public class AddNotesFragment extends Fragment {
         binding = FragmentAddNotesBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
 
-        EditText editTextDescription = rootView.findViewById(R.id.editTextDescription);
-        EditText editTextTags = rootView.findViewById(R.id.editTextTags);
+        editTextDescription = rootView.findViewById(R.id.editTextDescription);
+        editTextTags = rootView.findViewById(R.id.editTextTags);
 
-        editTextDescription.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        setupTextChangeListeners();
+        setupToolbarMenu(rootView);
+
+
+
+        Bundle args = getArguments();
+        if (args != null && args.containsKey("clicked_note")) {
+            NoteCardModel clickedNote = args.getParcelable("clicked_note");
+            if (clickedNote != null) {
+                editTextDescription.setText(clickedNote.getDescription());
+                editTextTags.setText(TextUtils.join(",", clickedNote.getTags()));
+                // Manually trigger text change listener to set initial values
+                editTextDescription.post(() -> editTextDescription.setText(String.format("%s\n%s", clickedNote.getTitle(), clickedNote.getDescription())));
+                editTextTags.post(() -> editTextTags.setText(TextUtils.join(",", clickedNote.getTags())));
             }
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+        return rootView;
+    }
 
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        View rootView = binding.getRoot();
+        // Adjust layout when keyboard is shown or hidden
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void afterTextChanged(Editable s) {
-                isDataChanged = true;
-                currentDescription = s.toString().trim();
-                // Split description into lines
-                String[] lines = currentDescription.split("\n", 2);
-                currentTitle = lines[0].trim(); // Set the first line as the title
-                currentDescription = lines.length > 1 ? lines[1].trim() : ""; // Set the second line as description
+            public void onGlobalLayout() {
+                Rect r = new Rect();
+                rootView.getWindowVisibleDisplayFrame(r);
+                int screenHeight = rootView.getRootView().getHeight();
+                int keypadHeight = screenHeight - r.bottom;
+                if (keypadHeight > screenHeight * 0.15) {
+                    // Keyboard is visible
+                    if (!isKeyboardOpen) {
+                        isKeyboardOpen = true;
+                        adjustFragmentLayoutForKeyboard(true);
+                    }
+                } else {
+                    // Keyboard is hidden
+                    if (isKeyboardOpen) {
+                        isKeyboardOpen = false;
+                        adjustFragmentLayoutForKeyboard(false);
+                    }
+                }
             }
         });
-
-        editTextTags.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                isDataChanged = true;
-                currentTags = s.toString().trim();
-            }
-        });
-
+    }
+    private void setupToolbarMenu(View rootView) {
         toolbar = rootView.findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.toolbar_menu);
         toolbar.setNavigationIcon(R.drawable.baseline_arrow_back_ios_24);
@@ -120,20 +140,70 @@ public class AddNotesFragment extends Fragment {
             }
             return false;
         });
+    }
 
-        Bundle args = getArguments();
-        if (args != null && args.containsKey("clicked_note")) {
-            NoteCardModel clickedNote = args.getParcelable("clicked_note");
-            if (clickedNote != null) {
-                editTextDescription.setText(clickedNote.getDescription());
-                editTextTags.setText(TextUtils.join(",", clickedNote.getTags()));
-                // Manually trigger text change listener to set initial values
-                editTextDescription.post(() -> editTextDescription.setText(String.format("%s\n%s", clickedNote.getTitle(), clickedNote.getDescription())));
-                editTextTags.post(() -> editTextTags.setText(TextUtils.join(",", clickedNote.getTags())));
+    private void setupTextChangeListeners() {
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-        }
 
-        return rootView;
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                isDataChanged = true;
+                currentDescription = s.toString().trim();
+                // Split description into lines
+                String[] lines = currentDescription.split("\n", 2);
+                currentTitle = lines[0].trim(); // Set the first line as the title
+                currentDescription = lines.length > 1 ? lines[1].trim() : ""; // Set the second line as description
+            }
+        });
+
+        editTextTags.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                isDataChanged = true;
+                currentTags = s.toString().trim();
+            }
+        });
+    }
+
+
+
+
+    private void openKeyboard() {
+        editTextDescription.requestFocus();
+        if (getActivity() != null) {
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+    }
+
+    private void adjustFragmentLayoutForKeyboard(boolean isKeyboardVisible) {
+        if (binding == null || binding.getRoot() == null) return;
+
+        if (isKeyboardVisible) {
+            // Adjust fragment layout when keyboard is shown
+            ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            binding.getRoot().setLayoutParams(params);
+        } else {
+            // Reset fragment layout when keyboard is hidden
+            ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            binding.getRoot().setLayoutParams(params);
+        }
     }
 
     private void navigateToTrash() {
@@ -235,31 +305,30 @@ public class AddNotesFragment extends Fragment {
         binding = null;
     }
 
-    public void saveNote() {
+    private void saveNote() {
         if (!isDataChanged || mAuth.getCurrentUser() == null || getActivity() == null || getContext() == null) return;
 
         String userId = mAuth.getCurrentUser().getUid();
         Date date = new Date(System.currentTimeMillis());
         String[] tagsArray = currentTags.split(",");
 
-        if (currentTitle.isEmpty()) {
-            currentTitle = "Untitled";
-        } else {
-            currentTitle = currentTitle.trim();
-        }
-        if (currentDescription.isEmpty()) {
-            currentDescription = "";
-        } else {
-            currentDescription = currentDescription.trim();
+        // Trim each tag to remove any leading or trailing spaces
+        for (int i = 0; i < tagsArray.length; i++) {
+            tagsArray[i] = tagsArray[i].trim();
         }
 
+        if (TextUtils.isEmpty(currentTitle)) {
+            currentTitle = "Untitled";
+        }
+
+        NoteCardModel note;
         Bundle args = getArguments();
         if (args != null && args.containsKey("clicked_note")) {
             NoteCardModel clickedNote = args.getParcelable("clicked_note");
             if (clickedNote != null) {
                 clickedNote.setTitle(currentTitle);
                 clickedNote.setDescription(currentDescription);
-                clickedNote.setTags(Arrays.asList(tagsArray));
+                clickedNote.setTags(Arrays.asList(tagsArray)); // Set the updated tags here
                 clickedNote.setDate(date);
 
                 db.collection("users").document(userId).collection("notes")
@@ -277,7 +346,7 @@ public class AddNotesFragment extends Fragment {
                 showToast("Clicked note is null. Unable to update note");
             }
         } else {
-            NoteCardModel note = new NoteCardModel(null, currentTitle, currentDescription, false, false, date, Arrays.asList(tagsArray));
+            note = new NoteCardModel(null, currentTitle, currentDescription, false, false, date, Arrays.asList(tagsArray));
 
             db.collection("users").document(userId).collection("notes")
                     .add(note.toMap())
@@ -302,4 +371,5 @@ public class AddNotesFragment extends Fragment {
                     });
         }
     }
+
 }

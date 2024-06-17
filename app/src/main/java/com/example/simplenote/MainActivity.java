@@ -91,17 +91,18 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Set<String> tags = new HashSet<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            NoteCardModel note = NoteCardModel.fromMap(document.getData());
+                            NoteCardModel note = document.toObject(NoteCardModel.class); // Convert snapshot to NoteCardModel
                             if (note.getTags() != null) {
                                 tags.addAll(note.getTags());
                             }
                         }
                         updateNavigationMenu(tags);
                     } else {
-                        Toast.makeText(this, "cannot find tags", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Failed to load Tags", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
 
     private void updateNavigationMenu(Set<String> tags) {
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -155,16 +156,17 @@ public class MainActivity extends AppCompatActivity {
 
     // Add a method to show notes tagged with a specific tag
     private void showTaggedNotes(String tag) {
-        if (homeFragment != null) {
-            homeFragment.setFilter(tag);
-        } else {
-            homeFragment = new HomeFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, homeFragment)
-                    .commitNow();
-            homeFragment.setFilter(tag);
-        }
+        HomeFragment homeFragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString("tag", tag);
+        homeFragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, homeFragment)
+                .commit();
+
     }
+
 
 
 

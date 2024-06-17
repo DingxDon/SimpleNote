@@ -33,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickListener {
 
@@ -47,6 +48,7 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private NavigationView navigationView;
     private String currentFilter = null;
+    private String filterTag = null;
 
     @Nullable
     @Override
@@ -68,6 +70,18 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
         initializeViews();
 
+        Bundle args = getArguments();
+        if (args != null && args.containsKey("tag")) {
+            filterTag = args.getString("tag");
+            filterNotesByTag(filterTag);
+        } else {
+            // If no tag is provided, show all notes
+
+            loadNotes();
+        }
+
+
+
         String fontSizePreference = PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .getString("font_size", "medium");
 
@@ -75,6 +89,36 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
         return view;
     }
+    private void filterNotesByTag(String tag) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getCurrentUser().getUid();
+
+        db.collection("users").document(userId).collection("notes")
+                .whereArrayContains("tags", tag)  // Corrected query to filter by tag
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<NoteCardModel> filteredNotes = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            NoteCardModel note = NoteCardModel.fromMap(document.getData());
+                            filteredNotes.add(note);
+                        }
+                        displayFilteredNotes(filteredNotes);
+                    } else {
+                        Toast.makeText(getContext(), "Failed to fetch notes: " + task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void displayFilteredNotes(List<NoteCardModel> filteredNotes) {
+        notesList.clear();  // Clear existing notesList
+        notesList.addAll(filteredNotes);  // Add filtered notes to notesList
+        adapter.notifyDataSetChanged();  // Notify adapter of data change
+        currentFilter = filterTag;  // Update current filter
+
+    }
+
 
     private void initializeViews() {
         drawerLayout = requireActivity().findViewById(R.id.drawer_layout);
