@@ -35,21 +35,10 @@
             android:summary="Choose a theme"
             android:entries="@array/theme_entries"
             android:entryValues="@array/theme_values"
-            android:defaultValue="light" />
+            android:defaultValue="system" />
     </PreferenceCategory>
 
-    <!-- Editor Section -->
-    <PreferenceCategory
-        android:key="category_editor"
-        android:title="Editor">
-        <ListPreference
-            android:key="font_size"
-            android:title="Font Size"
-            android:summary="Choose a font size for the editor"
-            android:entries="@array/font_size_entries"
-            android:entryValues="@array/font_size_values"
-            android:defaultValue="medium" />
-    </PreferenceCategory>
+
 
     <PreferenceCategory
         android:key="category_logout"

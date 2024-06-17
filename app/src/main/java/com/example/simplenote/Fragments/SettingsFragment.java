@@ -97,10 +97,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         private void performLogout() {
             FirebaseAuth.getInstance().signOut();
-            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, new LoginFragment());
             transaction.addToBackStack(null);
+
+            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
             transaction.commit();
         }
     }

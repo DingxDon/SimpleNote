@@ -49,6 +49,7 @@ public class TrashFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 requireActivity().onBackPressed();
+                onDestroy();
             }
         });
 

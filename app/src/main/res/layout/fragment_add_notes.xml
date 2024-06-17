@@ -23,11 +23,12 @@
             android:elevation="4dp"
             android:padding="8dp" />
 
+
         <!-- Content Layout -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
+            android:layout_below="@+id/toolbar"
             android:padding="16dp">
 
             <!-- Description -->
@@ -40,6 +41,7 @@
                 android:textSize="16sp"
                 android:background="@null"
                 android:gravity="top|start"
+                android:hint="Start typing here..."
                 android:layout_above="@id/editTextTags"
                 android:layout_marginBottom="16dp" />
 

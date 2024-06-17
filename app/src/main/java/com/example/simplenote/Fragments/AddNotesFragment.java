@@ -1,5 +1,6 @@
 package com.example.simplenote.Fragments;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -79,26 +80,34 @@ public class AddNotesFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         View rootView = binding.getRoot();
+
+        // Use a more descriptive variable name
+        final boolean[] isKeyboardShowing = {false};
+
         // Adjust layout when keyboard is shown or hidden
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            private final static float KEYBOARD_VISIBLE_THRESHOLD = 0.15f; // Use a constant for clarity
+
             @Override
             public void onGlobalLayout() {
                 Rect r = new Rect();
                 rootView.getWindowVisibleDisplayFrame(r);
                 int screenHeight = rootView.getRootView().getHeight();
                 int keypadHeight = screenHeight - r.bottom;
-                if (keypadHeight > screenHeight * 0.15) {
-                    // Keyboard is visible
-                    if (!isKeyboardOpen) {
-                        isKeyboardOpen = true;
-                        adjustFragmentLayoutForKeyboard(true);
+
+                boolean isNowShowing = keypadHeight > screenHeight * KEYBOARD_VISIBLE_THRESHOLD;
+
+                // Check if the keyboard state has changed
+                if (isNowShowing != isKeyboardShowing[0]) {
+                    isKeyboardShowing[0] = isNowShowing;
+                    adjustFragmentLayoutForKeyboard(isKeyboardShowing[0]);
+
+
+                    if (isKeyboardShowing[0]) {
+                        openKeyboard();
+                        editTextTags.requestFocus();
                     }
-                } else {
-                    // Keyboard is hidden
-                    if (isKeyboardOpen) {
-                        isKeyboardOpen = false;
-                        adjustFragmentLayoutForKeyboard(false);
-                    }
+
                 }
             }
         });
@@ -185,33 +194,40 @@ public class AddNotesFragment extends Fragment {
 
     private void openKeyboard() {
         editTextDescription.requestFocus();
-        if (getActivity() != null) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        InputMethodManager imm = (InputMethodManager) editTextDescription.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(editTextDescription, InputMethodManager.SHOW_IMPLICIT);
         }
     }
 
     private void adjustFragmentLayoutForKeyboard(boolean isKeyboardVisible) {
         if (binding == null || binding.getRoot() == null) return;
 
+        ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
+        // Adjust height only if needed
+        if (params.height != (isKeyboardVisible ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT)) {
+
+            params.height = isKeyboardVisible ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            binding.getRoot().setLayoutParams(params);
+            binding.getRoot().requestLayout();
+
+
+        }
         if (isKeyboardVisible) {
-            // Adjust fragment layout when keyboard is shown
-            ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            binding.getRoot().setLayoutParams(params);
-        } else {
-            // Reset fragment layout when keyboard is hidden
-            ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            binding.getRoot().setLayoutParams(params);
+            editTextDescription.requestFocus();
         }
     }
 
     private void navigateToTrash() {
         if (getActivity() != null) {
+
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.fragment_container, new TrashFragment())
                     .commit();
+        } else {
+            Log.e("AddNotesFragment", "Context is null. Unable to navigate to trash fragment.");
         }
     }
 
@@ -244,7 +260,7 @@ public class AddNotesFragment extends Fragment {
                                             .delete()
                                             .addOnSuccessListener(aVoid1 -> {
                                                 showToast("Note moved to trash successfully");
-                                                navigateToTrash();
+                                                navigateToHomeFragment();
                                             })
                                             .addOnFailureListener(e -> showToast("Failed to move note to trash"));
                                 })

@@ -24,7 +24,7 @@
     </style>
 
     <!-- Customize NavigationView -->
-    <style name="Widget.SimpleNote.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+    <style name="Widget.SimpleNote.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
         <!-- Background color for the NavigationView -->
         <item name="android:background">@color/colorBackground</item>
         <!-- Selected item background color -->
@@ -37,13 +37,14 @@
 
     <!-- Text appearance for selected item -->
     <style name="TextAppearance.SimpleNote.NavigationView.ItemActive" parent="TextAppearance.AppCompat.Body1">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!-- Text appearance for unselected item -->
     <style name="TextAppearance.SimpleNote.NavigationView.Item" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/black</item>
     </style>
+
 
     <!-- Screen background style -->
     <style name="ScreenBackground">
@@ -52,7 +53,7 @@
 
     <!-- Card background style -->
     <style name="CardBackground">
-        <item name="android:background">@color/colorSurfaceLight</item>
+        <item name="android:background">@color/colorAccent</item>
     </style>
 
     <!-- Text color style -->
