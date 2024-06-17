@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme -->
+
+    <!-- Light theme -->
+    <style name="Theme.SimpleNote.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your light theme here -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="backgroundColor">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+
+        <!-- Customize NavigationView theme -->
+        <item name="navigationViewStyle">@style/Widget.SimpleNote.NavigationView</item>
+    </style>
+
+    <!-- Customize NavigationView -->
+    <style name="Widget.SimpleNote.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <!-- Background color for the NavigationView -->
+        <item name="android:background">@color/colorBackground</item>
+        <!-- Selected item background color -->
+        <item name="itemBackground">?attr/backgroundColor</item>
+        <!-- Text appearance for selected item -->
+        <item name="itemTextAppearanceActive">@color/black</item>
+        <!-- Text appearance for unselected item -->
+        <item name="itemTextAppearance">@color/black</item>
+    </style>
+
+    <!-- Text appearance for selected item -->
+    <style name="TextAppearance.SimpleNote.NavigationView.ItemActive" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Text appearance for unselected item -->
+    <style name="TextAppearance.SimpleNote.NavigationView.Item" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- Screen background style -->
+    <style name="ScreenBackground">
+        <item name="android:background">@color/colorBackground</item>
+    </style>
+
+    <!-- Card background style -->
+    <style name="CardBackground">
+        <item name="android:background">@color/colorSurfaceLight</item>
+    </style>
+
+    <!-- Text color style -->
+    <style name="TextColor">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+</resources>

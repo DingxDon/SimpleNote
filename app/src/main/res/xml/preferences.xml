@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Notes Section -->
+    <PreferenceCategory
+        android:key="category_editor"
+        android:title="Editor">
+        <ListPreference
+            android:key="font_size"
+            android:title="Font Size"
+            android:summary="Choose a font size for the editor"
+            android:entries="@array/font_size_entries"
+            android:entryValues="@array/font_size_values"
+            android:defaultValue="medium" />
+    </PreferenceCategory>
+
+    <!-- Tags Section -->
+    <PreferenceCategory
+        android:key="category_tags"
+        android:title="Tags">
+        <SwitchPreferenceCompat
+            android:key="sort_tags_alphabetically"
+            android:title="Sort Alphabetically"
+            android:summary="Sort tags alphabetically"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <!-- Appearance Section -->
+    <PreferenceCategory
+        android:key="category_appearance"
+        android:title="Appearance">
+        <ListPreference
+            android:key="theme"
+            android:title="Theme"
+            android:summary="Choose a theme"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:defaultValue="light" />
+    </PreferenceCategory>
+
+    <!-- Editor Section -->
+    <PreferenceCategory
+        android:key="category_editor"
+        android:title="Editor">
+        <ListPreference
+            android:key="font_size"
+            android:title="Font Size"
+            android:summary="Choose a font size for the editor"
+            android:entries="@array/font_size_entries"
+            android:entryValues="@array/font_size_values"
+            android:defaultValue="medium" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="category_logout"
+        android:title="Account Management">.
+        <Preference
+        android:key="logout"
+        android:title="Logout"
+        android:summary="Logout of the app"
+         />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

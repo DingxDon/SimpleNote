@@ -1,0 +1,65 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
+}
+
+android {
+    namespace 'com.example.simplenote'
+    compileSdk 34
+
+    viewBinding {
+        enabled = true
+    }
+
+    defaultConfig {
+        applicationId "com.example.simplenote"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // AndroidX Libraries
+    implementation libs.appcompat
+    implementation libs.fragment.v140
+    implementation libs.lifecycle.runtime.ktx.v240
+
+    // Firebase
+    implementation platform(libs.firebase.bom.v3111)
+    implementation libs.firebase.auth.v2101
+    implementation libs.firebase.firestore.v2303
+
+    // Google Play Services
+    implementation libs.play.services.auth
+
+    // AndroidX Activity and Material Components
+    implementation libs.activity
+
+    implementation libs.material.v150
+    // Testing dependencies
+    testImplementation libs.junit
+    androidTestImplementation libs.junit.v113
+    androidTestImplementation libs.espresso.core.v340
+
+    // AndroidX Preferences
+    implementation libs.preference.ktx.v111
+
+    implementation(libs.kotlin.stdlib)
+
+
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_checklist"
+        android:icon="@drawable/baseline_checklist_24"
+        android:title="Checklist"
+        android:orderInCategory="101"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_info"
+        android:icon="@drawable/baseline_info_outline_24"
+        android:title="Info"
+        android:orderInCategory="102"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/baseline_more_vert_24"
+        android:title="More"
+        android:orderInCategory="103"
+        app:showAsAction="always" >
+
+    </item>
+</menu>

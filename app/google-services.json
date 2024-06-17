@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "835520002211",
+    "project_id": "simplenote-84d2c",
+    "storage_bucket": "simplenote-84d2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835520002211:android:3ed2955b6d1af18cfb6716",
+        "android_client_info": {
+          "package_name": "com.example.simplenote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835520002211-k12aah24l5mk72ot7o8194tosf3kcutv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.simplenote",
+            "certificate_hash": "d538c6b5ec38f2845bfbd2b77ec4d81307ca6c7e"
+          }
+        },
+        {
+          "client_id": "835520002211-24127n00i6q7sq05tsen42156ng8eejp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEkLY-Xgz8XpVYepKDvD3VHl32po_lY20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835520002211-24127n00i6q7sq05tsen42156ng8eejp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

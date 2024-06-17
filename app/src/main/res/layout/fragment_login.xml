@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.LoginFragment">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:id="@+id/welcome_RL"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginBottom="100sp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/welcome_To_Simple_Note"
+            android:layout_centerHorizontal="true"
+            android:textSize="50sp"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/welcome_TV"/>
+
+
+        <ImageView
+            android:layout_width="125dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/logo_IV"
+            android:contentDescription="@string/app_icon"
+            android:src="@drawable/note_icon"
+            android:layout_below="@id/welcome_TV"
+            android:layout_marginTop="50sp"/>
+
+    </RelativeLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:elevation="5dp"
+        android:id="@+id/LoginBtn_CV"
+        android:layout_marginBottom="25sp"
+        android:layout_gravity="bottom|center_horizontal"
+
+        >
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/LoginBtn_RL">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/login_with_google"
+                android:layout_toEndOf="@id/GoogleLoginBtn_IB"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:gravity="center"
+
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:id="@+id/LoginBtn_TV"/>
+
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:id="@+id/GoogleLoginBtn_IB"
+                android:layout_toStartOf="@id/GoogleLoginBtn_IB"
+                android:background="@drawable/_123025_logo_google_g_icon"
+                android:contentDescription="@string/login_with_google_image" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

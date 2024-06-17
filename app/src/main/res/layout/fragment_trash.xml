@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    tools:context=".Fragments.AddNotesFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_notes_RL"
+        android:background="@android:color/transparent"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_trash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="?attr/actionBarTheme"
+            android:popupTheme="?attr/actionBarPopupTheme"
+            android:elevation="4dp"
+            android:padding="8dp" />
+
+        <!-- Content Layout -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_trash"
+            android:padding="16dp"
+            android:id="@+id/trashRecyclerView">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

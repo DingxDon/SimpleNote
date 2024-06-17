@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Light Theme Colors -->
+    <color name="colorPrimary">@color/colorBackground</color>
+    <color name="colorPrimaryVariant">#D0CDD5</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorPrimaryVariantDark">#272727</color>
+    <color name="colorOnPrimaryDark">#000000</color>
+    <color name="colorSecondaryDark">#03DAC6</color>
+    <color name="colorSecondaryVariantDark">#03DAC5</color>
+    <color name="colorOnSecondaryDark">#000000</color>
+    <color name="colorBackgroundDark">#121212</color>
+    <color name="colorOnBackgroundDark">#FFFFFF</color>
+    <color name="colorSurfaceDark">#121212</color>
+    <color name="colorOnSurfaceDark">#FFFFFF</color>
+
+
+
+    <!-- Define colors -->
+    <color name="colorPrimaryLight">#FF4081</color> <!-- Light theme primary color -->
+    <color name="colorPrimaryVariantLight">#F06292</color> <!-- Light theme primary variant color -->
+    <color name="colorOnPrimaryLight">#000000</color> <!-- Light theme text color on primary components -->
+    <color name="colorSurfaceLight">#FFFFFF</color> <!-- Light theme surface/background color -->
+    <color name="colorBackgroundLight">#E0E0E0</color> <!-- Light theme background color -->
+    <color name="textColorPrimaryLight">#000000</color> <!-- Light theme primary text color -->
+
+    <color name="textColorPrimaryDark">#FFFFFF</color>
+
+    <!-- material Theme -->
+    <color name="md_theme_light_primary">#6750A4</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#EADDFF</color>
+    <color name="md_theme_light_onPrimaryContainer">#21005D</color>
+    <color name="md_theme_light_error">#B3261E</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_errorContainer">#F9DEDC</color>
+    <color name="md_theme_light_onErrorContainer">#410E0B</color>
+    <color name="md_theme_light_surface">#FFFBFE</color>
+    <color name="md_theme_light_onSurface">#1C1B1F</color>
+    <color name="md_theme_light_surfaceVariant">#E7E0EC</color>
+    <color name="md_theme_dark_primary">#D0BCFF</color>
+    <color name="md_theme_dark_onPrimary">#381E72</color>
+    <color name="md_theme_dark_primaryContainer">#4F378B</color>
+    <color name="md_theme_dark_onPrimaryContainer">#EADDFF</color>
+    <color name="md_theme_dark_secondary">#CCC2DC</color>
+    <color name="md_theme_dark_onSecondary">#332D41</color>
+    <color name="md_theme_dark_secondaryContainer">#4A4458</color>
+    <color name="md_theme_dark_onSurface">#E6E1E5</color>
+    <color name="md_theme_dark_surfaceVariant">#49454F</color>
+</resources>

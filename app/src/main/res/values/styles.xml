@@ -1,0 +1,17 @@
+<resources>
+    <style name="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">14sp</item>
+        <!-- Other attributes for small text appearance -->
+    </style>
+
+
+    <style name="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">18sp</item>
+        <!-- Other attributes for medium text appearance -->
+    </style>
+
+    <style name="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">24sp</item>
+        <!-- Other attributes for large text appearance -->
+    </style>
+</resources>

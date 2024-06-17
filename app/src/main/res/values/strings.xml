@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">SimpleNote</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_all_notes">Home</string>
+    <string name="nav_trash">Trash\n</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_tags">Tags</string>
+    <string name="nav_about">Untagged Notes</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="welcome_To_Simple_Note">Simple Notes</string>
+    <string name="app_icon">Simple Note</string>
+    <string name="login_with_google">Login With Google</string>
+    <string name="login_with_google_image">Login with Google Image</string>
+    <string name="category_notes">Notes</string>
+    <string name="sort_order">Sort Order</string>
+    <string name="settings">Settings</string>
+
+
+
+
+</resources>

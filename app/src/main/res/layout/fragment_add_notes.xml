@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/thin_border"
+    tools:context=".Fragments.AddNotesFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/add_notes_RL"
+        >
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="?attr/actionBarTheme"
+            android:popupTheme="?attr/actionBarPopupTheme"
+            android:elevation="4dp"
+            android:padding="8dp" />
+
+        <!-- Content Layout -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:padding="16dp">
+
+            <!-- Description -->
+            <EditText
+                android:id="@+id/editTextDescription"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:minLines="10"
+                android:textSize="16sp"
+                android:background="@null"
+                android:gravity="top|start"
+                android:layout_above="@id/editTextTags"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Tags -->
+            <EditText
+                android:id="@+id/editTextTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter tags"
+                android:inputType="text"
+                android:textSize="16sp"
+                android:background="@null"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="16dp" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <!-- Toolbar -->
+
+</FrameLayout>

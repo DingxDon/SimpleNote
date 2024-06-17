@@ -1,0 +1,105 @@
+[versions]
+activityKtx = "<version>"
+activityVersion = "1.2.0"
+agp = "8.4.2"
+androidxJunit = "1.1.3"
+appcompatVersion = "1.6.1"
+comGoogleAndroidMaterialMaterial = "1.5.0"
+credentials = "<latest version>"
+credentialsPlayServicesAuth = "1.2.0"
+credentialsVersion = "1.2.0"
+espressoCoreVersion = "3.4.0"
+firebaseAuthVersion = "21.0.0"
+firebaseBom = "33.1.0"
+firebaseBomVersion = "32.2.0"
+firebaseDatabaseVersion = "21.0.1"
+firebaseFirestore = "25.0.0"
+firebaseFirestoreVersion = "23.0.3"
+fragment = "1.5.5"
+fragmentVersion = "1.4.0"
+googleFirebaseAuth = "21.0.1"
+googleFirebaseBom = "31.1.1"
+googleid = "<latest version>"
+googleidVersion = "latest_version"
+googleMaterial = "1.4.0"
+googleMaterialVersion = "<version>"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+appcompat = "1.7.0"
+kotlinStdlib = "1.9.20"
+lifecycleRuntimeKtx = "2.6.1"
+lifecycleRuntimeKtxVersion = "2.4.0"
+material = "1.12.0"
+activity = "1.9.0"
+constraintlayout = "2.1.4"
+materialVersion = "1.8.0"
+googleGmsGoogleServices = "4.4.2"
+firebaseAuth = "23.0.0"
+firebaseDatabase = "21.0.0"
+playServicesAuth = "21.2.0"
+playServicesAuthApiCredentials = "19.0.0"
+playServicesAuthApiPhone = "19.0.0"
+playServicesAuthApiPhoneVersion = "19.2.0"
+playServicesAuthVersion = "19.2.0"
+playServicesIdentity = "19.0.0"
+preference = "1.1.1"
+preferenceKtx = "1.2.1"
+preferenceKtxVersion = "1.1.1"
+
+[libraries]
+activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+activity-v120 = { module = "androidx.activity:activity", version.ref = "activityVersion" }
+appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
+com-google-firebase-firebase-auth = { module = "com.google.firebase:firebase-auth" }
+credentials = { module = "androidx.credentials:credentials", version.ref = "credentials" }
+credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentials" }
+credentials-play-services-auth-v120 = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
+credentials-v120 = { module = "androidx.credentials:credentials", version.ref = "credentialsVersion" }
+espresso-core-v340 = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCoreVersion" }
+firebase-auth-v2100 = { module = "com.google.firebase:firebase-auth", version.ref = "firebaseAuthVersion" }
+firebase-auth-v2101 = { module = "com.google.firebase:firebase-auth", version.ref = "googleFirebaseAuth" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-bom-v3111 = { module = "com.google.firebase:firebase-bom", version.ref = "googleFirebaseBom" }
+firebase-bom-v3220 = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBomVersion" }
+firebase-database-v2101 = { module = "com.google.firebase:firebase-database", version.ref = "firebaseDatabaseVersion" }
+firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
+firebase-firestore-v2303 = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestoreVersion" }
+fragment = { module = "androidx.fragment:fragment", version.ref = "fragment" }
+fragment-v140 = { module = "androidx.fragment:fragment", version.ref = "fragmentVersion" }
+google-firebase-auth = { module = "com.google.firebase:firebase-auth" }
+google-firebase-database = { module = "com.google.firebase:firebase-database" }
+google-firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firebaseFirestore" }
+googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
+googleid-vlatestversion = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleidVersion" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+junit-v113 = { module = "androidx.test.ext:junit", version.ref = "androidxJunit" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinStdlib" }
+lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+lifecycle-runtime-ktx-v240 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+material-v140 = { module = "com.google.android.material:material", version.ref = "googleMaterial" }
+material-v150 = { module = "com.google.android.material:material", version.ref = "comGoogleAndroidMaterialMaterial" }
+material-v180 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
+material-vversion = { module = "com.google.android.material:material", version.ref = "googleMaterialVersion" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-auth-api-credentials = { module = "com.google.android.gms:play-services-auth-api-credentials", version.ref = "playServicesAuthApiCredentials" }
+play-services-auth-api-phone = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "playServicesAuthApiPhone" }
+play-services-auth-api-phone-v1920 = { module = "com.google.android.gms:play-services-auth-api-phone", version.ref = "playServicesAuthApiPhoneVersion" }
+play-services-auth-v1920 = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuthVersion" }
+play-services-identity = { module = "com.google.android.gms:play-services-identity", version.ref = "playServicesIdentity" }
+preference = { module = "androidx.preference:preference", version.ref = "preference" }
+preference-ktx = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtx" }
+preference-ktx-v111 = { module = "androidx.preference:preference-ktx", version.ref = "preferenceKtxVersion" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+
