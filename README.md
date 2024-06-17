@@ -10,6 +10,9 @@ SimpleNote is a minimalist note-taking app designed for ease of use and simplici
 - **Font Sizes**: Customize the font size for better readability.
 - **User Accounts**; Use your already available Google Account to Sign up effortlessly.
 
+## Youtube Demo
+- **https://github.com/DingxDon/SimpleNote
+  
 ## Screenshots
 
 Include screenshots of your app here to give users a visual preview.
