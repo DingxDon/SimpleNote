@@ -43,14 +43,11 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private FirebaseAuth mAuth;
-    private HomeFragment homeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         applyTheme();
-
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -61,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+
         // Initialize the views
         initializeViews();
+        setupDrawerToggle();
+
 
         // Check if the user is logged in or not
         mAuth = FirebaseAuth.getInstance();
@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
             showLoginFragment();
         } else {
             showHomeFragment();
+
             // Populate the tags
             populateTags();
         }
-        setupDrawerToggle();
 
 
 
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         Menu menu = navigationView.getMenu();
         MenuItem tagMenuItem = menu.findItem(R.id.nav_tag_group);
+        Log.d("MainActivity", "Tags: " + tags);
         if (tagMenuItem != null) {
             SubMenu tagSubMenu = tagMenuItem.getSubMenu();
             if (tagSubMenu != null) {
@@ -126,15 +127,18 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
         Log.d("MainActivity", "Setup drawer toggle");
     }
+
     private void initializeViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-
+        //drawerLayout.openDrawer(navigationView);
         // Set up the nav buttons and listeners
+
         navigationView.setNavigationItemSelectedListener(v -> {
             int id = v.getItemId();
             if (id == R.id.nav_all_notes) {
@@ -155,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 showTaggedNotes(tag);
 
             }
-            drawerLayout.closeDrawer(navigationView);
+           drawerLayout.closeDrawer(navigationView);
             return true;
         });
 
@@ -187,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, new LoginFragment())
                 .commit();
 
+
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
@@ -195,7 +200,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, new HomeFragment())
                 .commit();
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
     // Add a method to logout

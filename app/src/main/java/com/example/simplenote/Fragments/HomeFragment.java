@@ -59,6 +59,9 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
         toolbar = binding.homeToolbar;
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
+        initializeFirebase();
+
+        initializeViews();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,7 +71,6 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
 
 
-        initializeViews();
 
         Bundle args = getArguments();
         if (args != null && args.containsKey("tag")) {
@@ -80,8 +82,6 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
             loadNotes();
         }
 
-
-
         String fontSizePreference = PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .getString("font_size", "medium");
 
@@ -89,6 +89,12 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
         return view;
     }
+
+    private void initializeFirebase() {
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+    }
+
     private void filterNotesByTag(String tag) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -131,6 +137,7 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
         toolbar.setNavigationIcon(R.drawable.baseline_menu_24);
         toolbar.setNavigationOnClickListener(v -> drawerLayout.openDrawer(navigationView));
 
+
         fab = binding.fab;
         fab.setVisibility(View.VISIBLE);
 
@@ -142,10 +149,8 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
         navigationView.setCheckedItem(R.id.nav_all_notes);
 
         fab.setOnClickListener(v -> openAddNotesFragment());
-
-
-
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -172,7 +177,11 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
     }
 
     private void loadNotes() {
-        if (mAuth.getCurrentUser() == null) return;
+        if (mAuth == null || mAuth.getCurrentUser() == null) {
+
+
+            return;
+        }
 
         String userId = mAuth.getCurrentUser().getUid();
         db.collection("users").document(userId).collection("notes")

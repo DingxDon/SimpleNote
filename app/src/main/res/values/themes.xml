@@ -20,20 +20,9 @@
         <item name="android:statusBarColor">@color/white</item>
 
         <!-- Customize NavigationView theme -->
-        <item name="navigationViewStyle">@style/Widget.SimpleNote.NavigationView</item>
+        <item name="navigationViewStyle">@style/Widget.Design.NavigationView</item>
     </style>
 
-    <!-- Customize NavigationView -->
-    <style name="Widget.SimpleNote.NavigationView" parent="ThemeOverlay.Material3.NavigationView">
-        <!-- Background color for the NavigationView -->
-        <item name="android:background">@color/colorBackground</item>
-        <!-- Selected item background color -->
-        <item name="itemBackground">?attr/backgroundColor</item>
-        <!-- Text appearance for selected item -->
-        <item name="itemTextAppearanceActive">@color/black</item>
-        <!-- Text appearance for unselected item -->
-        <item name="itemTextAppearance">@color/black</item>
-    </style>
 
     <!-- Text appearance for selected item -->
     <style name="TextAppearance.SimpleNote.NavigationView.ItemActive" parent="TextAppearance.AppCompat.Body1">
