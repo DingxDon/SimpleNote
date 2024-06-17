@@ -22,5 +22,16 @@
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium"/>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/githubId"
+        android:text="https://github.com/DingxDon"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"/>
+
 
 </RelativeLayout>
