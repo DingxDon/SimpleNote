@@ -156,4 +156,9 @@ public class NoteCardModel implements Parcelable {
     public int describeContents() {
         return 0;
     }
+
+
+    public void setColor(int color) {
+
+    }
 }

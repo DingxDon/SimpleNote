@@ -11,12 +11,15 @@
         android:resizeableActivity="true"
         android:roundIcon="@drawable/note_icon"
         android:supportsRtl="true"
+        android:theme="@style/Theme.SimpleNote.Light"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.SimpleNote.Light"
+
+            android:windowSoftInputMode="adjustPan"
 
             >
             <intent-filter>

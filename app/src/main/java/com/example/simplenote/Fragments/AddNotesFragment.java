@@ -78,6 +78,9 @@ public class AddNotesFragment extends Fragment {
         return rootView;
     }
 
+
+
+
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         View rootView = binding.getRoot();
 
@@ -86,7 +89,8 @@ public class AddNotesFragment extends Fragment {
 
         // Adjust layout when keyboard is shown or hidden
         rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            private final static float KEYBOARD_VISIBLE_THRESHOLD = 0.15f; // Use a constant for clarity
+            private final static float KEYBOARD_VISIBLE_THRESHOLD = 0.15f;
+            private boolean isKeyboardShowing = false;
 
             @Override
             public void onGlobalLayout() {
@@ -98,12 +102,10 @@ public class AddNotesFragment extends Fragment {
                 boolean isNowShowing = keypadHeight > screenHeight * KEYBOARD_VISIBLE_THRESHOLD;
 
                 // Check if the keyboard state has changed
-                if (isNowShowing != isKeyboardShowing[0]) {
-                    isKeyboardShowing[0] = isNowShowing;
-                    adjustFragmentLayoutForKeyboard(isKeyboardShowing[0]);
-
-
-                    if (isKeyboardShowing[0]) {
+                if (isNowShowing != isKeyboardShowing) {
+                    isKeyboardShowing = isNowShowing;
+                    adjustFragmentLayoutForKeyboard(isKeyboardShowing);
+                    if (isKeyboardShowing) {
                         openKeyboard();
                         editTextTags.requestFocus();
                     }
@@ -163,6 +165,7 @@ public class AddNotesFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Check if the text has changed since the last check
                 isDataChanged = true;
                 currentDescription = s.toString().trim();
                 // Split description into lines
@@ -197,25 +200,24 @@ public class AddNotesFragment extends Fragment {
         InputMethodManager imm = (InputMethodManager) editTextDescription.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.showSoftInput(editTextDescription, InputMethodManager.SHOW_IMPLICIT);
+        } else {
+            Log.e("AddNotesFragment", "InputMethodManager is null. Unable to open keyboard.");
         }
+
+
     }
 
     private void adjustFragmentLayoutForKeyboard(boolean isKeyboardVisible) {
         if (binding == null || binding.getRoot() == null) return;
 
         ViewGroup.LayoutParams params = binding.getRoot().getLayoutParams();
-        // Adjust height only if needed
         if (params.height != (isKeyboardVisible ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT)) {
-
             params.height = isKeyboardVisible ? ViewGroup.LayoutParams.MATCH_PARENT : ViewGroup.LayoutParams.WRAP_CONTENT;
-
             binding.getRoot().setLayoutParams(params);
             binding.getRoot().requestLayout();
-
-
         }
         if (isKeyboardVisible) {
-            editTextDescription.requestFocus();
+            editTextTags.requestFocus();
         }
     }
 

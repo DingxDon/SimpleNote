@@ -35,14 +35,15 @@
             <EditText
                 android:id="@+id/editTextDescription"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:inputType="textMultiLine"
                 android:minLines="10"
                 android:textSize="16sp"
                 android:background="@null"
                 android:gravity="top|start"
+
                 android:hint="Start typing here..."
-                android:layout_above="@id/editTextTags"
                 android:layout_marginBottom="16dp" />
 
             <!-- Tags -->
@@ -54,7 +55,8 @@
                 android:inputType="text"
                 android:textSize="16sp"
                 android:background="@null"
-                android:layout_alignParentBottom="true"
+
+                android:layout_below="@id/editTextDescription"
                 android:layout_marginTop="16dp" />
 
         </RelativeLayout>

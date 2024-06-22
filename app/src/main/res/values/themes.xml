@@ -4,7 +4,7 @@
     <!-- Base application theme -->
 
     <!-- Light theme -->
-    <style name="Theme.SimpleNote.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.SimpleNote.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>

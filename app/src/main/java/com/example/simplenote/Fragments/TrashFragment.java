@@ -16,6 +16,7 @@ import com.example.simplenote.Adapters.TrashAdapter;
 import com.example.simplenote.Models.NoteCardModel;
 import com.example.simplenote.R;
 import com.example.simplenote.databinding.FragmentTrashBinding;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -31,6 +32,8 @@ public class TrashFragment extends Fragment {
     private FirebaseAuth mAuth;
     private List<NoteCardModel> deletedNotes;
     private TrashAdapter trashAdapter;
+
+    private NavigationView navigationView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,13 +97,53 @@ public class TrashFragment extends Fragment {
                     });
     }
 
+    private void restoreDeletedNotes(NoteCardModel note) {
+        String userId = mAuth.getCurrentUser().getUid();
+        String deletedNoteId = note.getNoteId();
+
+        db.collection("users").document(userId).collection("deleted_notes").document(deletedNoteId).delete()
+                .addOnSuccessListener(unused -> {
+                    db.collection("users").document(userId).collection("notes").document(deletedNoteId).set(note)
+                            .addOnSuccessListener(unused1 -> {
+                                deletedNotes.remove(note);
+                                trashAdapter.notifyDataSetChanged();
+                                Toast.makeText(getContext(), "Note restored successfully", Toast.LENGTH_SHORT).show();
+                                loadDeletedNotes();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), "Failed to restore note", Toast.LENGTH_SHORT).show();
+                            });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to delete note from trash", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void deleteAllNotes(NoteCardModel note) {
+        String userId = mAuth.getCurrentUser().getUid();
+
+        db.collection("users")
+                .document(userId)
+                .collection("deleted_notes")
+                .document(note.getNoteId())
+                .delete()
+                .addOnSuccessListener(unused -> {
+                    deletedNotes.remove(note);
+                    trashAdapter.notifyDataSetChanged();
+                    Toast.makeText(getContext(), "All notes deleted successfully", Toast.LENGTH_SHORT).show();
+                    loadDeletedNotes();
+                    })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), "Failed to delete all notes", Toast.LENGTH_SHORT).show();
+                });
+    }
 
     private void deleteNote(NoteCardModel note) {
         String userId = mAuth.getCurrentUser().getUid();
 
         db.collection("users")
                 .document(userId)
-                .collection("deleted_notes") // Adjust collection name as per your Firestore structure
+                .collection("deleted_notes")
                 .document(note.getNoteId())
                 .delete()
                 .addOnSuccessListener(unused -> {

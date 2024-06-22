@@ -34,6 +34,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             Toast.makeText(requireContext(), "Toolbar not found", Toast.LENGTH_SHORT).show();
         }
 
+
         return view;
     }
 
@@ -55,7 +56,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences, rootKey);
-
             ListPreference themePreference = findPreference("theme");
             if (themePreference != null) {
                 themePreference.setOnPreferenceChangeListener((preference, newValue) -> {

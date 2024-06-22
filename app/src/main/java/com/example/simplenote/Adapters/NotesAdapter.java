@@ -2,6 +2,7 @@ package com.example.simplenote.Adapters;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
@@ -64,7 +66,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         holder.textTitleView.setText(note.getTitle());
         holder.textDescriptionView.setText(note.getDescription());
         holder.pinButton.setImageResource(note.isPinned() ? R.drawable.baseline_push_pin_24_filled : R.drawable.outline_push_pin_24_outline);
-
+        holder.cardView.setCardBackgroundColor(getRandomColorCode());
         holder.itemView.setOnClickListener(v -> {
             if (onNoteClickListener != null) {
                 onNoteClickListener.onNoteClick(position);
@@ -150,4 +152,16 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             textView.setTextAppearance(R.style.TextAppearance_AppCompat_Medium); // Default to medium size
         }
     }
+
+
+    public int getRandomColorCode(){
+
+        Random random = new Random();
+
+        return Color.argb(255, random.nextInt(256), random.nextInt(256),     random.nextInt(256));
+
     }
+
+
+
+}

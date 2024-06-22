@@ -1,5 +1,6 @@
 package com.example.simplenote.Fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,10 +16,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +37,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickListener {
 
@@ -67,6 +71,11 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         notesList = new ArrayList<>();
         adapter = new NotesAdapter(notesList, getContext(), this);
+
+        //display as GridView notes
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+
         recyclerView.setAdapter(adapter);
 
 
@@ -81,6 +90,7 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
             loadNotes();
         }
+
 
         String fontSizePreference = PreferenceManager.getDefaultSharedPreferences(requireContext())
                 .getString("font_size", "medium");
@@ -178,8 +188,6 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
 
     private void loadNotes() {
         if (mAuth == null || mAuth.getCurrentUser() == null) {
-
-
             return;
         }
 
@@ -192,12 +200,13 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             NoteCardModel note = NoteCardModel.fromMap(document.getData());
                             note.setNoteId(document.getId()); // Set the noteId from the document ID
-
+                            selectRandomColor();
                             // Filter notes based on tags
                             if (currentFilter == null ||
                                     (note.getTags() != null && note.getTags().contains(currentFilter)) ||
                                     (currentFilter != null && note.getTags() == null)) {
                                 notesList.add(note);}
+
                         }
                         notesList.sort((o1, o2) -> Boolean.compare(o2.isPinned(), o1.isPinned()));
                         adapter.setNotes(notesList);
@@ -210,6 +219,20 @@ public class HomeFragment extends Fragment implements NotesAdapter.OnNoteClickLi
     public void onNotePinnedChanged() {
         loadNotes(); // Reload notes when pin state changes
     }
+    // Random Color Selector for notes
+    private void selectRandomColor() {
+        CardView cardView = requireActivity().findViewById(R.id.cardView);
+        if (cardView != null) {
+            cardView.setCardBackgroundColor(getRandomColor());
+        } else {
+            Toast.makeText(getContext(), "Error searching notes", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private int getRandomColor() {
+
+        Random random = new Random();
+        return Color.argb(255, random.nextInt(256), random.nextInt(256),     random.nextInt(256));    }
 
 
     private void performSearch(String query) {
