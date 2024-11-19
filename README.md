@@ -11,7 +11,7 @@ SimpleNote is a minimalist note-taking app designed for ease of use and simplici
 - **User Accounts**; Use your already available Google Account to Sign up effortlessly.
 
 ## Youtube Demo
-- **https://github.com/DingxDon/SimpleNote
+- https://github.com/DingxDon/SimpleNote
   
 ## Screenshots
 
@@ -72,19 +72,7 @@ Contributions are welcome! Here's how you can contribute to SimpleNote:
 4. Push to the branch (`git push origin feature/AmazingFeature`).
 5. Open a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 - Icons used in the app were provided by [Material Design Icons](https://material.io/resources/icons/).
 - Inspiration for the app's design and functionality came from various note-taking apps available on the market.
-
-## Contact
-
-For support, questions, or suggestions, please contact us at support@simplenote.com.
-
----
-
-Feel free to customize and expand this README file to better fit your app's specific features, usage instructions, and other relevant details.
